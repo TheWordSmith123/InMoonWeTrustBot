@@ -2,7 +2,7 @@ import requests, json, sys
 import discord
 from discord.ext import commands, tasks
 
-priorLive = False
+priorLive = True
 currentLive = False
 class botTasks(commands.Cog):
     def __init__(self, bot: discord.Bot):
@@ -14,6 +14,8 @@ class botTasks(commands.Cog):
 
     @tasks.loop(minutes=0.2)
     async def submissionsCheck(self):
+        global priorLive
+        global currentLive
         channelName = 'inmoonwetrust'
         contents = requests.get('https://www.twitch.tv/' +channelName).content.decode('utf-8')
         if 'isLiveBroadcast' in contents: 
